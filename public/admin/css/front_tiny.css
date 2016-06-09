@@ -1,0 +1,13 @@
+/* カスタムスタイル設定 */
+.tinyMCEfloatLeft {
+    float:left;
+    display:block;
+}
+.tinyMCEfloatRight {
+    float:right;
+    display:block;
+}
+.tinyMCEclearBoth {
+    clear:both;
+    display:block;
+}

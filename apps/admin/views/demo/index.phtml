@@ -1,0 +1,19 @@
+<div class="row">
+    <div class="col-lg-12">
+        <!-- text-left -->
+        <div class="text-left">
+            <a href="/admin/demo-form/" target="_blank"> +Thêm mới </a>
+        </div><hr>
+        <!-- Start widget table -->
+        <?php $wg = array(
+                        'title'  => array('title', 'public'),
+                        'col'    => array('title', 'public'),
+                        'source' => View::get('data'),
+                        'link'   => array('/admin/demo-form/', '/admin/demo-conf-delete/', '/admin/demo-list/')
+                    ); ?>
+        <?php View::loadWidget('table', $wg) ?>
+        <!-- End widget table-->
+    </div>
+</div>
+<!-- don't forget bind value for #pagetitle -->
+<input type="hidden" id="pagetitle" value="<?php echo View::get('title') ?>">

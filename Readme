@@ -1,0 +1,286 @@
+/**
+ * @author: The Phuc
+ * @since: 2016-03-11
+ * @desc: Document for new-cms
+ */
+
+CMS usage library phpactiverecord, you can found document in home page of
+http://www.phpactiverecord.org/
+
+php-activerecord is an open source ORM library based on the ActiveRecord pattern.
+It aims to massively simplify the interactions with your database and eliminate the
+chore of hand written SQL for common operations. Unlike other ORMs, you do not need
+to use any code generators nor maintain mapping files for your tables.
+This library was inspired by Ruby on Rails' implementation and therefore borrows many of its conventions and ideas.
+The best place to get started is by checking out the Guides below!
+The library is licensed under the MIT License and so you are completely free to do whatever you want with it.
+
+==================================================================================
+
+- Use command line to create model|controller
+    + see help               : php cms help
+    + create model           : php cms model-[module name] [model name]
+    + create controller      : php cms controller-[module name] [controller name]
+    Example create model     : php cms model-admin demo
+    Example create controller: php cms controller-admin demo
+
+==================================================================================
+
+- Load model in controller
+    + syntax                 : App::model(model-name1, model-name2, model-name*);
+    Example                  : App::model('user', 'blog');
+
+- Load core
+    + syntax                 : App::uses(core-name1, core-name2, core-name*);
+    Example                  : App::uses('password', 'validator');
+
+- Load vendor                : App::vendor(true);
+
+==================================================================================
+
+- Create route
+    If page is dinamically page
+    App::Route('route-name', function(){
+       return array('module-name', 'controller-name', 'action-name');
+    });
+
+    If page is static page, you must create file *html in static folder and create route same below
+    App::Route('route-name', function(){
+        return View::html('file-name');
+    });
+
+==================================================================================
+* Auto loaded
+
+- Transmit variable to view
+    + syntax                 : View::set([variable-name], [value]);
+    Example                  : View::set('title', 'Hello world');
+
+- Get variable from action transmit
+    + syntax                 : View::get([variable-name]);
+    Example                  : View::get('title');
+
+- Load partial in view
+    + syntax                 : View::loadPartial([partial-name]);
+    Example                  : View::loadPartial('common');
+
+- Disable view for action
+    + syntax                 : View::disable();
+
+- Set main layout for module
+    + syntax                 : View::setLayout([layout-name]);
+    Example                  : View::setLayout('admin');
+
+- Load subview in layout
+    + syntax                 : echo View::loadLayout();
+
+- Load other view not load default view of action
+    + syntax                 : View::setOtherView([view-name]);
+    Example                  : View::setOtherView('about');
+    Note                     : This other view file must exist in the same folder as the default view
+
+- Load widget in view
+    + syntax                 : View::loadWidget([Widget-name], $data); #data dependent on widget
+    Example                  : $wg = array(
+                                    'title'  => array('title', 'public'),
+                                    'col'    => array('title', 'public'),
+                                    'source' => View::get('data'),
+                                    'width'  => 500,
+                                    'link'   => array('/admin/demo-form/', '/admin/demo-conf-delete/', '/admin/demo-list/')
+                                );
+                                View::loadWidget('table', $wg);
+
+==================================================================================
+* Don't forget call App::uses('form');
+
+- Render input radio in view
+    + syntax                 : Form::radio($name, $data, $checked = null);
+    Example                  : Form::radio('status', [1=>'public', 2=>'private'], 1);
+
+- Render input text in view
+    + syntax                 : Form::text($name, $data = null, $placeholder = null, $class = null);
+    Example                  : Form::text('title', 'this is title', 'input your title', 'input-control');
+
+- Render input checkbox in view
+    + syntax                 : Form::checkbox($name, $data, $checked = null);
+    Example                  : Form::checkbox('category', [1=>'cate1', 2=>'cate2'], [1]);
+
+- Render textarea in view
+    + syntax                 : Form::textarea($name, $data = null, $class = null, $row = 3);
+    Example                  : Form::textarea('content', 'this is content', 'input-control', 5);
+
+- Render select in view
+    + syntax                 : Form::select($name, $data, $selected = null, $default = null, $class = null);
+    Example                  : Form::select('province', [1=>'Ho Chi Minh', 2=>'Ha Noi'], 1, '--please choose--', 'select-control');
+
+- Render input file image in view
+    + syntax                 : Form::image($name, $src = null, $remove = true, $class = null);
+    Example                  : Form::image('product_img', $product['img'], true);
+    Note: this function will be auto create iframe preview and link for remove image, if don't want to remove you should set $remove to false
+
+- Render input file (for upload document) in view
+    + syntax                 : Form::file($name, $source = null, $remove = true, $class = null);
+    Example                  : Form::file('pdf', $product['pdf'], true);
+    Note: if don't want to remove, you should set $remove to false
+
+==================================================================================
+* Don't forget call App::uses('file');
+
+- Check has file upload
+    + syntax                 : File::has([file-name])
+    Example                  : File::has('img')
+
+- Rename file upload
+    + syntax                 : File::rename([file-name]) #return new name of file
+    Example                  : File::rename('img')
+
+- Upload file
+    + syntax                 : File::upload([file-name], [path])
+    Example                  : File::upload('img', '/public/file/abc.jpg')
+
+- Remove file
+    + syntax                 : File::remove([path-to-file])
+    Example                  : File::remove('/public/file/abc.jpg')
+
+- Get type file upload
+    + syntax                 : File::extension([file-name]);
+    Example                  : File::extension('img');
+
+- Resize and crop image
+    + syntax                 : File:resize_crop_image($max_width, $max_height, $source_file, $dst_dir, $quality = 80);
+    + Example                : File:resize_crop_image(100, 100, 'upload/temp/abc.jpg', 'upload/blog/abc.jpg');
+
+==================================================================================
+* Don't forget call App::uses('paginator');
+
+- Create Paginator
+    + syntax                 : Paginator::getPaginate($config);
+    + Example                : $currentPage = (Response::getParam(2, 'int')) ? Response::getParam(2, 'int') : 1;
+                               $data = Paginator::getPaginate(array(
+                                  'table' => 'blog',
+                                  'limit' => 20,
+                                  'page' => $currentPage,
+                                  'order' => 'id DESC'
+                                ));
+
+==================================================================================
+* Don't forget call App::uses('password');
+
+- Hash password and validate password
+    + syntax create hash     : Password::create_hash($password);
+    + syntax validate hash   : Password::validate_password($password, $correct_hash);
+    Example create hash      : Password::create_hash([your-password]);
+    Example validate hash    : Password::validate_password($your_pass, $pass_on_db);
+
+==================================================================================
+* Don't forget call App::uses('response');
+
+- Check form submit post
+    + syntax                 : Response::isPost(); #return true|false
+
+- Check request is ajax
+    + syntax                 : Response::isAjax(); #return true|false
+
+- Redirect
+    + syntax                 : Response::redirect($your_url);
+    Example                  : Response::redirect('/about/');
+
+- Get param in url
+    + syntax                 : Response::getParam(index_of_param, filter);
+    Example                  : Response::getParam(1, 'int');
+
+- Filter value
+    + syntax                 : Response::filter($value, $filter);
+    Example                  : Response::filter('abc1', 'int'); #return 1
+
+- Get request
+    + syntax                 : Response::request($name, $filter);
+    Example                  : Response::request('title', 'string');
+
+- Back to old page when submit form appear error
+    + syntax                 : Response::errorback($error);
+
+- Close form when finish create or update
+    + syntax                 : Response::closeform($error);
+
+==================================================================================
+* Don't forget call App::uses('session');
+
+- Save session
+    + syntax                 : Session::set($key, $value);
+    Example                  : Session::set('user-login', array('fullname'=>'the phuc'));
+
+- Get value in session
+    + syntax                 : Session::get($key);
+    Example                  : Session::get('user-login');
+
+- Check session exist
+    + syntax                 : Session::has($key);
+    Example                  : Session::has('user-login');
+
+- Remove a session
+    + syntax                 : Session::remove($key);
+    Example                  : Session::remove('user-login');
+
+- Remove all session
+    + syntax                 : Session::removeAll();
+
+==================================================================================
+* Don't forget call App::uses('api');
+
+- Get long-lat in google maps
+    + syntax                 : Api::getCoordinates($address);
+    Example                  : Api::getCoordinates('Dist 3, Ho Chi Minh, Viet Nam');
+
+-Get postal
+    + syntax                 : Api::getPostal($code);
+    Example                  : Api::getPostal('9070000');
+
+==================================================================================
+* Don't forget call App::uses('language');
+
+- Translate language
+    + syntax                 : Language::line($keyword, $language);
+    Example                  : Language::line('home', 'en');
+
+==================================================================================
+* Don't forget call App::uses('validator');
+
+- Validate
+    + syntax                 : Validator::validate(array(
+                                                    array('name-show1', $value1, $type1),
+                                                    array('name-show2', $value2, $type2),
+                                                )); // return array error for function 
+                                                    // Response::errorback($err);
+    Example                  : Validator::validate(array(
+                                                    array('title', $title, 'require'),
+                                                    array('email', $email, 'email'),
+                                                ));
+
+==================================================================================
+
+- Create widgets
+    + go to widgets folder follow directory `apps/widgets`
+    + create new php file
+    + create class, class name must same with file name
+    + create static function active include 1 param
+    Example:
+        - Table.php
+        - class Table{
+              public static function active($data = null){
+                  #code...
+              }#end function
+          }
+
+- Load widgets in view
+    + syntax                 : View::loadWidget($widget_name, $data)
+    Example                  : $wg = array(
+                                    'title'  => array('名前', 'ID'),
+                                    'col'    => array('name', 'username'),
+                                    'source' => View::get('data'),
+                                    'width' => 500,
+                                    'link'   => array('/admin/user-form/', '/admin/user-conf-delete/', '/admin/user-list/')
+                                );
+                               View::loadWidget('table', $wg);
+
+=======================================END========================================

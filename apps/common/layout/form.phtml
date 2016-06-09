@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/public/admin/images/favicon.png">
+    <title><?php echo View::get('title') ?></title>
+    <!-- JS -->
+    <script src="/public/admin/js/jquery-2.2.3.min.js"></script>
+    <script src="/public/admin/ckeditor/ckeditor.js?t=E3NE"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="/public/admin/js/jquery-ui.js"></script>
+    <script src="/public/admin/js/main.js"></script>
+    <script>
+        $(function() {
+            $( ".renderdatepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+        });
+    </script>
+    <!-- CSS -->
+    <style>
+        .title {
+            color: #fff;
+            background: #4e92d6;
+            text-align: left;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 3px 0px 3px 10px;
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <center><div class="title" id="panelTile"><?php echo View::get('title') ?></div></center>
+    <center><?php echo View::loadLayout() ?></center>
+</body>
+</html>

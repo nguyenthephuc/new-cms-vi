@@ -1,0 +1,126 @@
+<?php
+/**
+ * @package    CMS
+ * @version    1.0
+ * @author     The Phuc
+ * @copyright  2016 The Phuc
+ */
+defined('APP_PATH') || define('APP_PATH', __DIR__."/apps/");
+defined('SYSTEM')   || define('SYSTEM', __DIR__."/system/");
+function folder_exist($folder){
+    $path = realpath($folder);
+    return ($path AND is_dir($path)) ? true : false;
+}
+function commandNotFound(){
+    echo "Command not found!\n";
+    echo "usage: 'php cms help' to see menu help\n";
+    die;
+}
+function help(){
+    echo "Format Command| php cms [controller|model]-[module-name] [name-controller-or-model]\n";
+    echo "Example       | php cms controller-admin test\n";
+    echo "Example       | php cms model-admin test\n";
+    die;
+}
+function getTypeField($type){
+    if(preg_match('/int/', $type)){
+        return 'int';
+    }else if(preg_match('/float/', $type)){
+        return 'float';
+    }else if(preg_match('/varchar/', $type)){
+        return 'string';
+    }else if(preg_match('/text/', $type)){
+        return 'string';
+    }
+    return '';
+}
+if( !isset($argv[1]) ){
+    commandNotFound();
+}elseif( $argv[1] !== 'help' && !isset($argv[2]) ){
+    commandNotFound();
+}
+$data     = isset($argv[1]) ? $argv[1] : '';
+$data     = explode('-', $data);
+$fileName = isset($argv[2]) ? strtolower($argv[2]) : '';
+
+switch ($data[0]) {
+    case 'help':
+        help();
+        break;
+
+    case 'controller':
+        $path = APP_PATH.$data[1].'/controllers/';
+        if(!folder_exist($path)){
+            echo "\nPath '$path' not found!\n";die;
+        }
+        $className = ucwords(strtolower($fileName)).'Controller';
+        $controller = $path.$className.'.php';
+        if(file_exists($controller)){
+            echo "\nController already exist!\n";die;
+        }
+        @chmod($path, 0777);
+        $controllerFile = fopen($controller, "w") or die("Unable to open file!");
+        $content = "<?php\n";
+        $content .= "\n";
+        $content .= "class $className extends ControllerBase {\n";
+        $content .= "\n";
+        $content .= "    public function __construct()\n";
+        $content .= "    {\n";
+        $content .= "        parent::__construct();\n";
+        $content .= "        #code...\n";
+        $content .= "    }\n";
+        $content .= "\n";
+        $content .= "    public function indexAction()\n";
+        $content .= "    {\n";
+        $content .= "        #code...\n";
+        $content .= "    }\n";
+        $content .= "}";
+        fwrite($controllerFile, $content);
+        fclose($controllerFile);
+        echo "\nCreated controller '$className'\n";
+        break;
+
+    case 'model':
+        $path = APP_PATH.$data[1].'/models/';
+        if(!folder_exist($path)){
+            echo "\nPath '$path'  not found!\n";die;
+        }
+        $className = ucwords($fileName);
+        $model = $path.$className.'.php';
+        if(file_exists($model)){
+            echo "\nModel already exist!\n";die;
+        }
+        $config = require_once APP_PATH."configs/config.php";
+        require_once SYSTEM."orm/rb.php";
+        R::setup(sprintf('mysql:host=%s;dbname=%s', $config['db']['host'], $config['db']['dbname']), $config['db']['username'], $config['db']['password']);
+        $Listtable = R::getAssoc("SHOW TABLES");
+        if(!in_array($fileName, $Listtable)){
+            echo "\nTable '$fileName' not found in your database\n"; die;
+        }
+        $Listfield = R::getAll("SHOW FIELDS FROM `$fileName`");
+        @chmod($path, 0777);
+        $modelFile = fopen($model, "w") or die("Unable to open file!");
+        $content = "<?php\n";
+        $content .= "\n";
+        $content .= "class $className extends ActiveRecord\Model {\n";
+        $content .= "\n";
+        $content .= '    public static function mapping()'."\n";
+        $content .= "    {\n";
+        $content .= '        $params = Response::request();'."\n";
+        $content .= '        unset($params[\'_url\']);'."\n";
+        foreach ($Listfield as $key => $value) {
+            $fieldType = getTypeField($value['Type']);
+            $fieldName = $value['Field'];
+            $content .= '        if(isset($params['."'$fieldName'".'])) $params['."'$fieldName'".'] = Response::filter($params['."'$fieldName'".'], '."'$fieldType'".');'."\n";
+        }
+        $content .= '        return $params;'."\n";
+        $content .= "    }\n";
+        $content .= "}";
+        fwrite($modelFile, $content);
+        fclose($modelFile);
+        echo "\nCreated model '$className'\n";
+        break;
+    default:
+        commandNotFound();
+        break;
+}

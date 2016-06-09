@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Màn hình đăng nhập trang quản trị</title>
+    <link href="/public/admin/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/public/admin/css/style.css" rel="stylesheet">
+    <script src="/public/admin/js/jquery-2.2.3.min.js"></script>
+    <script src="/public/admin/js/main.js"></script>
+    <script type="text/javascript">
+        var _0xefac=["\x6B\x65\x79\x64\x6F\x77\x6E","\x77\x68\x69\x63\x68","\x2F\x61\x64\x6D\x69\x6E\x2F\x6C\x6F\x67\x69\x6E\x2F\x6C\x6F\x67\x69\x6E\x2D\x73\x65\x63\x75\x72\x69\x74\x79\x2F","\x6F\x6E","\x25\x63\x43\x68\u1ED7\x20\x6E\xE0\x79\x20\x6B\x68\xF4\x6E\x67\x20\u0111\xF9\x61\x20\u0111\u01B0\u1EE3\x63\x2C\x20\u0111\x69\x20\x63\x68\u1ED7\x20\x6B\x68\xE1\x63\x20\x63\x68\u01A1\x69\x20\x6E\x68\x61\x6E\x68\x21","\x63\x6F\x6C\x6F\x72\x3A\x20\x62\x6C\x75\x65\x3B\x20\x66\x6F\x6E\x74\x2D\x73\x69\x7A\x65\x3A\x31\x35\x70\x78\x3B","\x6C\x6F\x67","\x25\x63\x47\x6F\x20\x61\x77\x61\x79\x21","\x72\x65\x61\x64\x79"];jQuery(document)[_0xefac[3]](_0xefac[0],function(_0x72cbx1){if(_0x72cbx1[_0xefac[1]]===13){login(_0xefac[2])}});jQuery(document)[_0xefac[8]](function(){console[_0xefac[6]](_0xefac[4],_0xefac[5]);console[_0xefac[6]](_0xefac[7],_0xefac[5])})
+    </script>
+    <style>
+        .container {
+            margin-top: 10%;
+        }
+        .panel-body {
+            background: #DDDDD7;
+            box-shadow: 5px 5px 5px #888888;
+        }
+        .panel-heading {
+            background: #2e8ece !important;
+            color: white !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><strong>Vui lòng đăng nhập</strong></h3>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" autocomplete="off">
+                            <fieldset>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Tài khoản" name="username" type="text" autofocus>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Mật khẩu" name="password" type="password">
+                                </div>
+                                <div class="text-center" style="color: red;" id="resutl_message"></div>
+                                <button type="button" class="osx" onclick="login('/admin/login/login-security/')">Đăng nhập</button>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

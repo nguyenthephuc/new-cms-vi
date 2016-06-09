@@ -1,0 +1,23 @@
+<center>
+    <?php $data = View::get('data') ?>
+    <form action="<?php echo View::get('action') ?>" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="<?php echo ($data) ? $data->id : '' ?>" />
+        <table cellspacing="1" cellpadding="3" bgcolor="#999999">
+            <col style="background-color:#eee; width:130.0px; text-align:center;" />
+            <col style="background-color:#fff; width:350.0px;" />
+            <tr>
+                <td>Họ tên<span style="color:#F00;">※</span></td>
+                <td><?php echo Form::text('name', ($data) ? $data->name : '') ?></td>
+            </tr>
+            <tr>
+                <td>Tài khoản<span style="color:#F00;">※</span></td>
+                <td><?php echo Form::text('username', ($data) ? $data->username : '') ?></td>
+            </tr>
+            <tr>
+                <td>Mật khẩu</td>
+                <td><?php echo Form::text('password') ?></td>
+            </tr>
+        </table>
+        <br /><input type="submit" value="Đồng ý" />　<input type="button" value=" Hủy " onclick="window.close();"/><br />
+    </form>
+</center>

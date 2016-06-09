@@ -1,0 +1,19 @@
+<div class="row">
+    <div class="col-lg-12">
+        <!-- text-left -->
+        <div class="text-left">
+            <a href="/admin/user-form/" target="_blank"> +Thêm tài khoản </a>
+        </div><hr>
+        <!-- Start widget table -->
+        <?php $wg = array(
+                        'title'  => array('Họ tên', 'Tài khoản'),
+                        'col'    => array('name', 'username'),
+                        'source' => View::get('data'),
+                        'link'   => array('/admin/user-form/', '/admin/user-conf-delete/', '/admin/user-list/')
+                    ); ?>
+        <?php View::loadWidget('table', $wg) ?>
+        <!-- End widget table-->
+    </div>
+</div>
+<!-- don't forget bind value for #pagetitle -->
+<input type="hidden" id="pagetitle" value="<?php echo View::get('title') ?>">

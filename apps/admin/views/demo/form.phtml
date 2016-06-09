@@ -1,0 +1,25 @@
+<center>
+    <?php $data = View::get('data') ?>
+    <form action="<?php echo View::get('action') ?>" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="<?php echo ($data) ? $data->id : '' ?>" />
+
+        <table cellspacing="1" cellpadding="3" bgcolor="#999999">
+            <col style="background-color:#eee; width:130.0px; text-align:center;" />
+            <col style="background-color:#fff; width:700.0px;" />
+            <tr>
+                <td>public date<span style="color:#F00;">※</span></td>
+                <td><?php echo Form::text('public', ($data) ? $data->public : '', true) ?></td>
+            </tr>
+            <tr>
+                <td>title<span style="color:#F00;">※</span></td>
+                <td><?php echo Form::text('title', ($data) ? $data->title : '') ?></td>
+            </tr>
+            <tr>
+                <td>content<span style="color:#F00;">※</span></td>
+                <td><?php echo Form::textarea('content', ($data) ? $data->content : '') ?></td>
+            </tr>
+        </table>
+        <br /><input type="submit" value="　Đồng ý　" />　<input type="button" value=" Hủy " onclick="window.close();"/><br />
+    </form>
+</center>
+<?php View::loadWidget( 'editor', 'content' ) ?>

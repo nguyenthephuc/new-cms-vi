@@ -1,0 +1,26 @@
+<center>
+<!-- class="dateOnly" cal_option="0,1,1" -->
+    <?php $data = View::get('data') ?>
+    <form action="/admin/demo-delete" method="POST">
+        <input type="hidden" name="id" value="<?php echo ($data) ? $data->id : '' ?>" />
+
+        <table cellspacing="1" cellpadding="3" bgcolor="#999999">
+            <col style="background-color:#eee; width:130.0px; text-align:center;" />
+            <col style="background-color:#fff; width:350.0px;" />
+
+            <tr>
+                <td>TITLE<span style="color:#F00;">※</span></td>
+                <td><?php echo ($data) ? $data->title : '' ?></td>
+            </tr>
+
+            <tr>
+                <td>CONTENT<span style="color:#F00;">※</span></td>
+                <td><?php echo ($data) ? $data->content : '' ?></td>
+            </tr>
+
+        </table>
+        <br>
+        <label style="color: red">Bạn có muốn xóa demo này？</label>
+        <br /><input type="submit" value="　Đồng ý　" />　<input type="button" value=" Hủy " onclick="window.close();"/><br />
+    </form>
+</center>
