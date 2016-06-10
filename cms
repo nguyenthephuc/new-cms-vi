@@ -104,6 +104,8 @@ switch ($data[0]) {
         $content .= "\n";
         $content .= "class $className extends ActiveRecord\Model {\n";
         $content .= "\n";
+        $content .= '    static $table_name = '."'$fileName'".';';
+        $content .= "\n\n";
         $content .= '    public static function mapping()'."\n";
         $content .= "    {\n";
         $content .= '        $params = Response::request();'."\n";

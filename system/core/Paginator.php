@@ -1,5 +1,5 @@
 <?php
-class Paginator extends ActiveRecord\Model {
+class Paginator {
 
     public static function getPaginate($config)
     {
@@ -12,9 +12,15 @@ class Paginator extends ActiveRecord\Model {
         $total = $table::count(array('conditions' => $conditions));
         $turn = $config['limit'];
         $k = (($config['page']) - 1 == 0) ? $config['page'] - 1 :  $turn*($config['page'] - 1);
-        $where = (isset($config['conditions']) && $config['conditions']) ? "WHERE ".$config['conditions'] : '';
-        $order = (isset($config['order']) && $config['order']) ? "ORDER BY ".$config['order'] : '';
-        $data = $table::find_by_sql("SELECT * FROM {$config['table']} $where $order LIMIT $k, $turn");
+        $where = (isset($config['conditions']) && $config['conditions']) ? $config['conditions'] : '';
+        $order = (isset($config['order']) && $config['order']) ? $config['order'] : '';
+        $option = array(
+            'conditions' => $where,
+            'order' => $order,
+            'limit' => $turn,
+            'offset' => $k
+        );
+        $data = $table::all($option);
         $sum_page = ceil($total / $turn);
         $next = self::Next($total, $config['page'], $turn);
         $before = self::Back($config['page']);

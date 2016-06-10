@@ -2,6 +2,8 @@
 
 class Users extends ActiveRecord\Model {
 
+    static $table_name = 'users';
+
     public static function mapping()
     {
         $params = Response::request();

@@ -2,6 +2,8 @@
 
 class Demos extends ActiveRecord\Model{
 
+    static $table_name = 'demos';
+
     public static function mapping()
     {
         $params = Response::request();
