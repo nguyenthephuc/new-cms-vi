@@ -36,11 +36,11 @@ App::Route('admin/dashboard', function(){
     return array('admin', 'index', 'index');
 });
 
-App::Route('admin/user-list(/[0-9]{0,})?', function(){
+App::Route('admin/user-list/:int?', function(){
     return array('admin', 'user', 'index');
 });
 
-App::Route('admin/user-form(/[0-9]{0,})?', function(){
+App::Route('admin/user-form/:int?', function(){
     return array('admin', 'user', 'form');
 });
 
@@ -52,7 +52,7 @@ App::Route('admin/user-update', function(){
     return array('admin', 'user', 'update');
 });
 
-App::Route('admin/user-conf-delete(/[0-9]{0,})?', function(){
+App::Route('admin/user-conf-delete/:int?', function(){
     return array('admin', 'user', 'confdel');
 });
 
@@ -60,11 +60,11 @@ App::Route('admin/user-delete', function(){
     return array('admin', 'user', 'delete');
 });
 
-App::Route('admin/demo-list(/[0-9]{0,})?', function(){
+App::Route('admin/demo-list/:int?', function(){
     return array('admin', 'demo', 'index');
 });
 
-App::Route('admin/demo-form(/[0-9]{0,})?', function(){
+App::Route('admin/demo-form/:int?', function(){
     return array('admin', 'demo', 'form');
 });
 
@@ -76,7 +76,7 @@ App::Route('admin/demo-update', function(){
     return array('admin', 'demo', 'update');
 });
 
-App::Route('admin/demo-conf-delete(/[0-9]{0,})?', function(){
+App::Route('admin/demo-conf-delete/:int?', function(){
     return array('admin', 'demo', 'confdel');
 });
 

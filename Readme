@@ -94,33 +94,33 @@ The library is licensed under the MIT License and so you are completely free to 
 * Don't forget call App::uses('form');
 
 - Render input radio in view
-    + syntax                 : Form::radio($name, $data, $checked = null);
-    Example                  : Form::radio('status', [1=>'public', 2=>'private'], 1);
+    + syntax                 : Form::radio($arr);
+    Example                  : Form::radio(arra('name'=>'radio', 'data'=>array(1=>'radio 1', 2=>'radio 2')));
 
 - Render input text in view
-    + syntax                 : Form::text($name, $data = null, $placeholder = null, $class = null);
-    Example                  : Form::text('title', 'this is title', 'input your title', 'input-control');
+    + syntax                 : Form::text($arr);
+    Example                  : Form::text(array('name'=>'fullname', 'value'=>'this is value'));
 
 - Render input checkbox in view
-    + syntax                 : Form::checkbox($name, $data, $checked = null);
-    Example                  : Form::checkbox('category', [1=>'cate1', 2=>'cate2'], [1]);
+    + syntax                 : Form::checkbox($arr);
+    Example                  : Form::checkbox(array('name'=>'mycheckbox', 'data'=>array(1=>'checkbox 1', 2=>'checkbox 2'), 'checked'=>array(1,2)));
 
 - Render textarea in view
-    + syntax                 : Form::textarea($name, $data = null, $class = null, $row = 3);
-    Example                  : Form::textarea('content', 'this is content', 'input-control', 5);
+    + syntax                 : Form::textarea($arr);
+    Example                  : Form::textarea(array('name'=>'content', 'value'=>'this is value'));
 
 - Render select in view
-    + syntax                 : Form::select($name, $data, $selected = null, $default = null, $class = null);
-    Example                  : Form::select('province', [1=>'Ho Chi Minh', 2=>'Ha Noi'], 1, '--please choose--', 'select-control');
+    + syntax                 : Form::select($arr);
+    Example                  : Form::select(array('name'=>'province', 'data'=>[1=>'Ho Chi Minh', 2=>'Ha Noi'], 1, 'default'=>'--please choose--'));
 
 - Render input file image in view
-    + syntax                 : Form::image($name, $src = null, $remove = true, $class = null);
-    Example                  : Form::image('product_img', $product['img'], true);
+    + syntax                 : Form::image($arr);
+    Example                  : Form::image(array('name'=>'myimg'));
     Note: this function will be auto create iframe preview and link for remove image, if don't want to remove you should set $remove to false
 
 - Render input file (for upload document) in view
-    + syntax                 : Form::file($name, $source = null, $remove = true, $class = null);
-    Example                  : Form::file('pdf', $product['pdf'], true);
+    + syntax                 : Form::file($arr);
+    Example                  : Form::file(array('name'=>'pdf'));
     Note: if don't want to remove, you should set $remove to false
 
 ==================================================================================

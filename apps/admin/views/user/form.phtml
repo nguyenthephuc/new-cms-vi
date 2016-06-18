@@ -7,15 +7,17 @@
             <col style="background-color:#fff; width:350.0px;" />
             <tr>
                 <td>Họ tên<span style="color:#F00;">※</span></td>
-                <td><?php echo Form::text('name', ($data) ? $data->name : '') ?></td>
+                <?php $value = ($data) ? $data->name : '' ?>
+                <td><?php echo Form::text(array('name'=>'name', 'value'=>$value)) ?></td>
             </tr>
             <tr>
                 <td>Tài khoản<span style="color:#F00;">※</span></td>
-                <td><?php echo Form::text('username', ($data) ? $data->username : '') ?></td>
+                <?php $value = ($data) ? $data->username : '' ?>
+                <td><?php echo Form::text(array('name'=>'username', 'value'=>$value)) ?></td>
             </tr>
             <tr>
                 <td>Mật khẩu</td>
-                <td><?php echo Form::text('password') ?></td>
+                <td><?php echo Form::text(array('name'=>'password')) ?></td>
             </tr>
         </table>
         <br /><input type="submit" value="Đồng ý" />　<input type="button" value=" Hủy " onclick="window.close();"/><br />

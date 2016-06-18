@@ -8,15 +8,18 @@
             <col style="background-color:#fff; width:700.0px;" />
             <tr>
                 <td>public date<span style="color:#F00;">※</span></td>
-                <td><?php echo Form::text('public', ($data) ? $data->public : '', true) ?></td>
+                <?php $value = ($data) ? $data->public : '' ?>
+                <td><?php echo Form::text(array('name'=>'public', 'class'=>'renderdatepicker', 'value'=>$value)) ?></td>
             </tr>
             <tr>
                 <td>title<span style="color:#F00;">※</span></td>
-                <td><?php echo Form::text('title', ($data) ? $data->title : '') ?></td>
+                <?php $value = ($data) ? $data->title : '' ?>
+                <td><?php echo Form::text(array('name'=>'title', 'value'=>$value)) ?></td>
             </tr>
             <tr>
                 <td>content<span style="color:#F00;">※</span></td>
-                <td><?php echo Form::textarea('content', ($data) ? $data->content : '') ?></td>
+                <?php $value = ($data) ? $data->content : '' ?>
+                <td><?php echo Form::textarea(array('name'=>'content', 'value'=>$value)) ?></td>
             </tr>
         </table>
         <br /><input type="submit" value="　Đồng ý　" />　<input type="button" value=" Hủy " onclick="window.close();"/><br />

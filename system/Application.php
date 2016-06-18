@@ -21,7 +21,7 @@ class App {
         self::$_url = self::rmes(self::$_url, self::$_removeExtraSlashes);
         /** create patern to check route */
         $route = (!self::$_url) ? '' : $route;
-        $patern = "/^".str_replace('/', '\/', $route)."$/";
+        $patern = self::compilePattern($route);
         /** check exist route */
         if(preg_match($patern, self::$_url)){
             global $config;
@@ -129,6 +129,27 @@ class App {
         }else{
             self::$_checkRoute = false;
         }/** check exist route */
+    }
+
+    private static function compilePattern($pattern)
+    {
+        if( strpos($pattern, "/:") ){
+            if( strpos($pattern, "/:params") ){
+                $pattern = str_replace("/:params", "(/.*)*", $pattern);
+                return "/^" . str_replace("/", "\/", $pattern) . "$/";
+            }
+
+            if( strpos($pattern, "/:int?") ){
+                $pattern = str_replace("/:int?", "(/[0-9]+)?", $pattern);
+                return "/^" . str_replace("/", "\/", $pattern) . "$/";
+            }
+
+            if( strpos($pattern, "/:int") ){
+                $pattern = str_replace("/:int", "/([0-9]+)", $pattern);
+                return "/^" . str_replace("/", "\/", $pattern) . "$/";
+            }
+        }
+        return "/^" . str_replace("/", "\/", $pattern) . "$/";
     }
 
     public static function existPage()
